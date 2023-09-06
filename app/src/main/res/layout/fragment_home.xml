@@ -11,9 +11,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/backgroundimage"
+        android:src="@drawable/backgroundHome"
         android:scaleType="centerCrop"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="50dp"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
