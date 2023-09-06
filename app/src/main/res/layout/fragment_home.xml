@@ -65,6 +65,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:background="@color/red"
+        android:layout_marginHorizontal="16dp"
         android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -86,7 +87,7 @@
     app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
     app:spanCount="2"
     tools:listitem="@layout/item_home"
-    app:layout_constraintTop_toBottomOf="@id/toolbar"
+    app:layout_constraintTop_toBottomOf="@id/textInput"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
 
