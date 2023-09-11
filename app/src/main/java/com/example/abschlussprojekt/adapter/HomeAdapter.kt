@@ -1,5 +1,6 @@
 package com.example.abschlussprojekt.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
@@ -28,9 +29,10 @@ class HomeAdapter(private val viewModel: SharedViewModel, private val dataSet: L
 
     override fun onBindViewHolder(holder: ItemHomeViewHolder, position: Int) {
         val pokemon = dataSet[position]
-        val imgUri = pokemon.sprites.sprite.toUri().buildUpon().scheme("https").build()
+        Log.e("Pokemon", "Pokemon $pokemon")
+        //val imgUri = pokemon.sprites.sprite.toUri().buildUpon().scheme("https").build()
 
-        holder.binding.ivPokemon.load(imgUri)
+        //holder.binding.ivPokemon.load(imgUri)
         holder.binding.tvPokeId.text = pokemon.id.toString()
         holder.binding.tvPokeName.text = pokemon.name
 

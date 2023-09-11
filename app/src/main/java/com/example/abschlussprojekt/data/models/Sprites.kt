@@ -1,5 +1,5 @@
 package com.example.abschlussprojekt.data.models
 
 data class Sprites(
-    val sprite: String,
+    val front_default: String,
 )
