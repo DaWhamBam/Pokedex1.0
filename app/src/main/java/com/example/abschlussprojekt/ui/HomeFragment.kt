@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
 
 
         viewModel.pokeList.observe(viewLifecycleOwner, Observer{
-            val pokeList = viewModel.pokeList
+            val pokeList = viewModel.pokeList.value
             Log.e("Pokemon", "Pokemon: $pokeList")
         binding.recyclerViewHome.adapter = HomeAdapter(viewModel, it)
     }

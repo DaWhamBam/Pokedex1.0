@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.abschlussprojekt.data.models.Pokemon
+import com.example.abschlussprojekt.data.models.pokemon.Pokemon
 
 @Dao
 interface PokemonDatabaseDao {

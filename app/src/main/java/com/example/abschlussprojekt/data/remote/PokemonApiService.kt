@@ -1,7 +1,7 @@
 package com.example.abschlussprojekt.data.remote
 
-import com.example.abschlussprojekt.data.models.DataSourcePokemon
-import com.example.abschlussprojekt.data.models.Pokemon
+import com.example.abschlussprojekt.data.models.pokemonhomelist.DataSourcePokemon
+import com.example.abschlussprojekt.data.models.pokemon.Pokemon
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit

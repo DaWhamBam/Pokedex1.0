@@ -3,16 +3,12 @@ package com.example.abschlussprojekt.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.net.toUri
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.example.abschlussprojekt.data.models.Pokemon
+import com.example.abschlussprojekt.data.models.pokemonhomelist.PokemonListItem
 import com.example.abschlussprojekt.databinding.ItemHomeBinding
-import com.example.abschlussprojekt.ui.HomeFragmentDirections
 import com.example.abschlussprojekt.ui.SharedViewModel
 
-class HomeAdapter(private val viewModel: SharedViewModel, private val dataSet: List<Pokemon>) :
+class HomeAdapter(private val viewModel: SharedViewModel, private val dataSet: List<PokemonListItem>) :
     RecyclerView.Adapter<HomeAdapter.ItemHomeViewHolder>() {
 
     inner class ItemHomeViewHolder(val binding: ItemHomeBinding) :
@@ -28,18 +24,22 @@ class HomeAdapter(private val viewModel: SharedViewModel, private val dataSet: L
     }
 
     override fun onBindViewHolder(holder: ItemHomeViewHolder, position: Int) {
-        val pokemon = dataSet[position]
-        Log.e("Pokemon", "Pokemon $pokemon")
+        val pokemonItem = dataSet[position]
+        val pokemon = viewModel.loadPokemon(pokemonItem.name)
+        Log.e("Pokemon", "Pokemon $pokemonItem")
         //val imgUri = pokemon.sprites.sprite.toUri().buildUpon().scheme("https").build()
 
         //holder.binding.ivPokemon.load(imgUri)
-        holder.binding.tvPokeId.text = pokemon.id.toString()
-        holder.binding.tvPokeName.text = pokemon.name
+        holder.binding.tvPokeId.text = pokemon.toString()
+        holder.binding.tvPokeName.text = pokemonItem.name
 
+        /*
         holder.binding.cardview.setOnClickListener {
             val navController = holder.itemView.findNavController()
             viewModel.currentPokemon = pokemon
             navController.navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment())
         }
+
+         */
     }
 }
