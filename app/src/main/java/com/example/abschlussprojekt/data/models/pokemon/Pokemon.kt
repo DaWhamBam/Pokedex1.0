@@ -13,7 +13,7 @@ data class Pokemon(
     @Json(name = "name") val name: String,
     @Json(name = "height") val height: Int,
     @Json(name = "weight") val weight: Int,
-    @Json(name = "sprites") val sprites: Sprites,
-    @Json(name = "types") val types: List<PokemonTyps>,
-    @Json(name = "stats") val stats: List<PokemonStat>,
+    //@Json(name = "sprites") val sprites: Sprites,
+    //@Json(name = "types") val types: List<PokemonTyps>,
+    //@Json(name = "stats") val stats: List<PokemonStat>,
 )

@@ -23,9 +23,11 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     val pokeName = repository.pokemon.value?.name
 
+    val pokemon = repository.pokemon.value
+
     init {
         loadPokemonList()
-        loadPokemon(pokeName!!)
+        //loadPokemon(pokeName!!)
     }
 
 
@@ -35,9 +37,14 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun loadPokemon(name: String){
+    fun loadPokemon(name: String) : Pokemon{
         viewModelScope.launch {
             repository.getPokemon(name)
+        }
+        if (Pokemon != null) {
+            return Pokemon
+        } else {
+            return null
         }
     }
 

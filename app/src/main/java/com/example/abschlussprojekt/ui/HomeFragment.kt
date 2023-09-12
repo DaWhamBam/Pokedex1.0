@@ -5,9 +5,12 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.abschlussprojekt.R
 import com.example.abschlussprojekt.adapter.HomeAdapter
 import com.example.abschlussprojekt.databinding.FragmentHomeBinding
@@ -31,13 +34,32 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-        viewModel.pokeList.observe(viewLifecycleOwner, Observer{
+        viewModel.pokeList.observe(viewLifecycleOwner, Observer {
             val pokeList = viewModel.pokeList.value
             Log.e("Pokemon", "Pokemon: $pokeList")
-        binding.recyclerViewHome.adapter = HomeAdapter(viewModel, it)
-    }
+            binding.recyclerViewHome.adapter = HomeAdapter(viewModel, it)
+        }
         )
+
+        binding.ivSearchSymbole.setOnClickListener {
+            if(binding.textInput.visibility == VISIBLE) {
+                binding.textInput.visibility = GONE
+            } else {
+                binding.textInput.visibility = VISIBLE
+            }
+        }
+
+        binding.ivFilterSymbole.setOnClickListener {
+            if(binding.cardviewFilter.visibility == VISIBLE){
+                binding.cardviewFilter.visibility = GONE
+            } else {
+                binding.cardviewFilter.visibility = VISIBLE
+            }
+        }
+
+        binding.ivLibrarySymbole.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLibraryFragment())
+        }
+
     }
 }

@@ -26,11 +26,16 @@ class HomeAdapter(private val viewModel: SharedViewModel, private val dataSet: L
     override fun onBindViewHolder(holder: ItemHomeViewHolder, position: Int) {
         val pokemonItem = dataSet[position]
         val pokemon = viewModel.loadPokemon(pokemonItem.name)
-        Log.e("Pokemon", "Pokemon $pokemonItem")
+        Log.e("Pokemon", "Pokemon $pokemon")
         //val imgUri = pokemon.sprites.sprite.toUri().buildUpon().scheme("https").build()
 
         //holder.binding.ivPokemon.load(imgUri)
-        holder.binding.tvPokeId.text = pokemon.toString()
+
+
+            holder.binding.tvPokeId.text = pokemon.id.toString()
+
+
+
         holder.binding.tvPokeName.text = pokemonItem.name
 
         /*
@@ -41,5 +46,6 @@ class HomeAdapter(private val viewModel: SharedViewModel, private val dataSet: L
         }
 
          */
+
     }
 }
