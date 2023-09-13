@@ -8,19 +8,39 @@ import com.example.abschlussprojekt.data.models.pokemonhomelist.PokemonListItem
 
 class AppRepository(private val api: PokeApi, private val database: PokemonDatabase) {
 
-    private val _pokeList = MutableLiveData<List<PokemonListItem>>()
-    val pokeList: LiveData<List<PokemonListItem>>
-        get() = _pokeList
+    val pokemonPageSize = 50
+
+    private val _pokeItemList = MutableLiveData<List<PokemonListItem>>()
+    val pokeItemList: LiveData<List<PokemonListItem>>
+        get() = _pokeItemList
+
+    private val _newPokemonPage = MutableLiveData<MutableList<Pokemon>>(mutableListOf())
+    val newPokemonPage: LiveData<MutableList<Pokemon>>
+        get() = _newPokemonPage
+
 
     private val _pokemon = MutableLiveData<Pokemon>()
     val pokemon: LiveData<Pokemon>
         get() = _pokemon
 
-    suspend fun getPokemonList(){
-        _pokeList.value = api.retrofitService.getPokemonList().results
+    suspend fun getPokemonItemList(){
+        val response = api.retrofitService.getPokemonItemList()
+        _pokeItemList.value = response.results
     }
 
     suspend fun getPokemon(name: String) {
         _pokemon.value = api.retrofitService.getPokemon(name)
+    }
+
+    suspend fun loadPokemonPage(offset: Int) {
+        _pokeItemList.value?.let { pokemonItemList ->
+            val loadPokemonList = pokemonItemList.subList(offset, offset+50)
+            val newPokemon = mutableListOf<Pokemon>()
+            loadPokemonList.forEach {
+                newPokemon.add(api.retrofitService.getPokemon(it.name))
+            }
+            // notify observers
+            _newPokemonPage.value = newPokemon
+        }
     }
 }

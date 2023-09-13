@@ -19,35 +19,34 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     lateinit var currentPokemon: Pokemon
 
     private val repository = AppRepository(PokeApi, database)
-    val pokeList = repository.pokeList
+    val pokeItemList = repository.pokeItemList
+    val pokemonList = mutableListOf<Pokemon>()
+    val newPokemonPage = repository.newPokemonPage
 
-    val pokeName = repository.pokemon.value?.name
-
-    val pokemon = repository.pokemon.value
 
     init {
         loadPokemonList()
-        //loadPokemon(pokeName!!)
     }
 
 
     fun loadPokemonList() {
         viewModelScope.launch {
-            repository.getPokemonList()
+            repository.getPokemonItemList()
+            repository.loadPokemonPage(0)
         }
     }
 
-    fun loadPokemon(name: String) : Pokemon{
+    fun loadPokemon(name: String){
         viewModelScope.launch {
             repository.getPokemon(name)
         }
-        if (Pokemon != null) {
-            return Pokemon
-        } else {
-            return null
-        }
     }
 
+    fun loadPokemonPage(offset: Int) {
+        viewModelScope.launch {
+            repository.loadPokemonPage(offset)
+        }
+    }
 
 
 }

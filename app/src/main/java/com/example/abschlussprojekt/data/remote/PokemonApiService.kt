@@ -23,7 +23,7 @@ private val retrofit = Retrofit.Builder()
 interface PokemonApiService {
 
     @GET("pokemon?limit=100000&offset=0")
-    suspend fun getPokemonList(): DataSourcePokemon
+    suspend fun getPokemonItemList(): DataSourcePokemon
 
     @GET("pokemon/{name}")
     suspend fun getPokemon(@Path("name") name: String): Pokemon

@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.abschlussprojekt.data.models.PokeEntitiy
 import com.example.abschlussprojekt.data.models.pokemon.Pokemon
 
-@Database(entities = [Pokemon::class], version = 1)
+@Database(entities = [PokeEntitiy::class], version = 1)
 abstract class PokemonDatabase: RoomDatabase() {
 
     abstract val pokemonDatabaseDao: PokemonDatabaseDao
