@@ -74,6 +74,7 @@
         android:layout_marginHorizontal="16dp"
         android:background="#00FFFFFF"
         android:visibility="gone"
+        android:hint="Suche"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
