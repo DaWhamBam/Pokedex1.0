@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frameLayout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -60,6 +61,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/iv_favorite"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="48dp"
@@ -72,7 +74,7 @@
             android:id="@+id/tv_poke_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="85dp"
             android:fontFamily="@font/josefin_sans_bold"
             android:text="Bulbasaur"
             android:textColor="@color/white"
@@ -300,6 +302,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_exp_int" />
 
         <Button
+            android:id="@+id/btn_start_fight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

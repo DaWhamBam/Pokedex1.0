@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.abschlussprojekt.data.local.getDatabase
 import com.example.abschlussprojekt.data.models.pokemon.Pokemon
+import com.example.abschlussprojekt.data.models.pokemontyps.PokemonForData
 import com.example.abschlussprojekt.data.remote.AppRepository
 import com.example.abschlussprojekt.data.remote.PokeApi
 import kotlinx.coroutines.launch
@@ -22,6 +23,8 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val pokeItemList = repository.pokeItemList
     val pokemonList = mutableListOf<Pokemon>()
     val newPokemonPage = repository.newPokemonPage
+
+    lateinit var completePokemon: PokemonForData
 
 
     init {
