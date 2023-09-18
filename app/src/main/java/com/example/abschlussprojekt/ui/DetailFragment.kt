@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.abschlussprojekt.R
 import com.example.abschlussprojekt.databinding.FragmentDetailBinding
@@ -240,6 +241,13 @@ class DetailFragment : Fragment() {
         binding.tvSpatkInt.text = currentPokemon.stats[3].base_stat
         binding.tvSpdefInt.text = currentPokemon.stats[4].base_stat
         binding.tvSpdInt.text = currentPokemon.stats[5].base_stat
+        binding.tvPokeId.text = currentPokemon.id.toString()
+
+        binding.ivBackArrow.setOnClickListener {
+            findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToHomeFragment())
+        }
+
+
     }
 
 }
