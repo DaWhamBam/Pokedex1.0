@@ -36,9 +36,10 @@ class DetailFragment : Fragment() {
        val imgUri = currentPokemon.sprites.front_default.toUri().buildUpon().scheme("https").build()
         val firstType = currentPokemon.types.first().type.name
         val secondType = currentPokemon.types.last().type.name
-        Log.e("Pokemen", "$currentPokemon")
+        Log.e("Type1", "$firstType")
+        Log.e("Type2", "$secondType")
 
-        val completePokemon = viewModel.completePokemon.id
+       // val completePokemon = viewModel.completePokemon.id
 
         when (firstType) {
             "grass" -> {
@@ -153,9 +154,92 @@ class DetailFragment : Fragment() {
             }
         }
 
+        when (secondType) {
+            "grass" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.plant))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "ice" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.ice))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "poison" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.poisen))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "psychic" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.psych))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "rock" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.stone))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "steel" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.steel))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "dark" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.unlight))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "water" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.water))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "bug" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.bug))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "dragon" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.dragon))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "electric" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.electric))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "fairy" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.fairy))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "fighting" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.fight))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "fire" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.fire))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "flying" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.flight))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "ghost" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.ghost))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "ground" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.ground))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            "normal" -> {
+                binding.btnType2.setBackgroundColor(getResources().getColor(R.color.normal))
+                binding.btnType2.text = secondType.uppercase()
+            }
+            else -> { binding.btnType2.setBackgroundColor(getResources().getColor(R.color.white))
+                binding.btnType2.text = "NONE"
+            }
+        }
+
         binding.ivPokemon.load(imgUri)
         binding.tvPokeName.text = currentPokemon.name.capitalize()
-        binding.tvAtk.text = currentPokemon.stats.first().base_stat
+        binding.tvHpInt.text = currentPokemon.stats.first().base_stat
+        binding.tvAtkInt.text = currentPokemon.stats[1].base_stat
+        binding.tvDefInt.text = currentPokemon.stats[2].base_stat
+        binding.tvSpatkInt.text = currentPokemon.stats[3].base_stat
+        binding.tvSpdefInt.text = currentPokemon.stats[4].base_stat
+        binding.tvSpdInt.text = currentPokemon.stats[5].base_stat
     }
 
 }

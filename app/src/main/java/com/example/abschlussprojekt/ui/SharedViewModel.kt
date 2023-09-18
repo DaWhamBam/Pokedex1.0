@@ -24,7 +24,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val pokemonList = mutableListOf<Pokemon>()
     val newPokemonPage = repository.newPokemonPage
 
-    lateinit var completePokemon: PokemonForData
+//    lateinit var completePokemon: PokemonForData
 
 
     init {
