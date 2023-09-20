@@ -25,6 +25,8 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
     val pokemon: LiveData<Pokemon>
         get() = _pokemon
 
+    val favoritePokemon = database.pokemonDatabaseDao.getAll()
+
     suspend fun getPokemonItemList(){
         val response = api.retrofitService.getPokemonItemList()
         _pokeItemList.value = response.results
