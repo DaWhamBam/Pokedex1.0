@@ -2,12 +2,18 @@ package com.example.abschlussprojekt.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.abschlussprojekt.data.models.pokemonstats.PokemonStat
-import com.example.abschlussprojekt.data.models.pokemontyps.PokemonForData
-import com.example.abschlussprojekt.data.models.pokemontyps.PokemonTyps
 
 @Entity
 data class PokeEntitiy(
     @PrimaryKey
-    val id: Int = 0,
+    var id: Int = 0,
+    var favorit: Boolean = false,
+    var height: String,
+    var weight: String,
+    var spriteDefaultFront: String,
+    var type1: String,
+    var type2: String,
+    var hp: String,
+    var hpInt: String,
+
 )

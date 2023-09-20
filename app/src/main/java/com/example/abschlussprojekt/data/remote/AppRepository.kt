@@ -1,8 +1,10 @@
 package com.example.abschlussprojekt.data.remote
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abschlussprojekt.data.local.PokemonDatabase
+import com.example.abschlussprojekt.data.models.PokeEntitiy
 import com.example.abschlussprojekt.data.models.pokemon.Pokemon
 import com.example.abschlussprojekt.data.models.pokemonhomelist.PokemonListItem
 
@@ -41,6 +43,22 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
             }
             // notify observers
             _newPokemonPage.value = newPokemon
+        }
+    }
+
+    suspend fun insert(pokemon: PokeEntitiy) {
+        try {
+            database.pokemonDatabaseDao.insert(pokemon)
+        } catch (e: Exception) {
+            Log.e("InsertFun", "Insert database error: $e")
+        }
+    }
+
+    suspend fun delete(id: Int) {
+        try {
+            database.pokemonDatabaseDao.deletePokemon(id)
+        } catch (e: Exception) {
+            Log.e("DeleteFun", "Delete database error: $e")
         }
     }
 }
