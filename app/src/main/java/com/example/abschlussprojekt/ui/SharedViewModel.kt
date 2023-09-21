@@ -1,11 +1,13 @@
 package com.example.abschlussprojekt.ui
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.abschlussprojekt.data.local.getDatabase
-import com.example.abschlussprojekt.data.models.PokeEntitiy
+import com.example.abschlussprojekt.data.models.PokeEntity
 import com.example.abschlussprojekt.data.models.pokemon.Pokemon
 import com.example.abschlussprojekt.data.remote.AppRepository
 import com.example.abschlussprojekt.data.remote.PokeApi
@@ -17,31 +19,29 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     var inputText = MutableLiveData<String>()
 
-    lateinit var currentPokemon: Pokemon
+    private val _currentPokemon : MutableLiveData<PokeEntity> = MutableLiveData()
+    val currentPokemon : LiveData<PokeEntity>
+        get() = _currentPokemon
 
     private val repository = AppRepository(PokeApi, database)
     val pokeItemList = repository.pokeItemList
     val pokemonList = mutableListOf<Pokemon>()
     val newPokemonPage = repository.newPokemonPage
-
-//    lateinit var completePokemon: PokemonForData
-
+    val favoritePokemon = repository.favoritePokemon
 
     init {
         loadPokemonList()
     }
 
+    val setCurrentPokemon : (Pokemon) -> Unit = {
+        val newEntity = toPokemonEntity(it)
+        _currentPokemon.postValue(newEntity)
+    }
 
     fun loadPokemonList() {
         viewModelScope.launch {
             repository.getPokemonItemList()
             repository.loadPokemonPage(0)
-        }
-    }
-
-    fun loadPokemon(name: String){
-        viewModelScope.launch {
-            repository.getPokemon(name)
         }
     }
 
@@ -51,28 +51,33 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun toPokemonEntity(pokemon: Pokemon): PokeEntitiy {
-        return PokeEntitiy(
+    fun toPokemonEntity(pokemon: Pokemon): PokeEntity {
+        return PokeEntity(
             id = pokemon.id,
+            name = pokemon.name,
             height = pokemon.height.toString(),
             weight = pokemon.weight.toString(),
             spriteDefaultFront = pokemon.sprites.front_default,
             type1 = pokemon.types.first().type.name,
             type2 = pokemon.types.last().type.name,
-            hp = pokemon.stats[0].stat.name,
-            hpInt = pokemon.stats[0].base_stat
+            hpInt = pokemon.stats[0].base_stat,
+            atkInt = pokemon.stats[1].base_stat,
+            defInt = pokemon.stats[2].base_stat,
+            spdInt = pokemon.stats[3].base_stat,
+            spDefInt = pokemon.stats[4].base_stat,
+            spAtkInt = pokemon.stats[5].base_stat
         )
     }
 
-    fun insertPoke(pokemon: PokeEntitiy) {
+    fun insertPoke() {
         viewModelScope.launch {
-            repository.insert(pokemon)
+            repository.insert(currentPokemon.value!!)
         }
     }
 
-    fun deletePoke(pokemon: PokeEntitiy) {
+    fun deletePoke() {
         viewModelScope.launch {
-            repository.delete(pokemon.id)
+            repository.delete(currentPokemon.value!!.id)
         }
     }
 

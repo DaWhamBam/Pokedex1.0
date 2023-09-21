@@ -4,13 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abschlussprojekt.data.local.PokemonDatabase
-import com.example.abschlussprojekt.data.models.PokeEntitiy
+import com.example.abschlussprojekt.data.models.PokeEntity
 import com.example.abschlussprojekt.data.models.pokemon.Pokemon
 import com.example.abschlussprojekt.data.models.pokemonhomelist.PokemonListItem
 
 class AppRepository(private val api: PokeApi, private val database: PokemonDatabase) {
-
-    val pokemonPageSize = 50
 
     private val _pokeItemList = MutableLiveData<List<PokemonListItem>>()
     val pokeItemList: LiveData<List<PokemonListItem>>
@@ -19,7 +17,6 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
     private val _newPokemonPage = MutableLiveData<MutableList<Pokemon>>(mutableListOf())
     val newPokemonPage: LiveData<MutableList<Pokemon>>
         get() = _newPokemonPage
-
 
     private val _pokemon = MutableLiveData<Pokemon>()
     val pokemon: LiveData<Pokemon>
@@ -30,10 +27,6 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
     suspend fun getPokemonItemList(){
         val response = api.retrofitService.getPokemonItemList()
         _pokeItemList.value = response.results
-    }
-
-    suspend fun getPokemon(name: String) {
-        _pokemon.value = api.retrofitService.getPokemon(name)
     }
 
     suspend fun loadPokemonPage(offset: Int) {
@@ -48,7 +41,7 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
         }
     }
 
-    suspend fun insert(pokemon: PokeEntitiy) {
+    suspend fun insert(pokemon: PokeEntity) {
         try {
             database.pokemonDatabaseDao.insert(pokemon)
         } catch (e: Exception) {

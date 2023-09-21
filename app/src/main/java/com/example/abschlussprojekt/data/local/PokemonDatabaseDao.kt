@@ -6,25 +6,24 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.abschlussprojekt.data.models.PokeEntitiy
-import com.example.abschlussprojekt.data.models.pokemon.Pokemon
+import com.example.abschlussprojekt.data.models.PokeEntity
 
 @Dao
 interface PokemonDatabaseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(pokemon: PokeEntitiy)
+    suspend fun insert(pokemon: PokeEntity)
 
     @Update
-    suspend fun update(pokemon: PokeEntitiy)
+    suspend fun update(pokemon: PokeEntity)
 
-    @Query("SELECT * FROM PokeEntitiy")
-    fun getAll(): LiveData<List<PokeEntitiy>>
+    @Query("SELECT * FROM PokeEntity")
+    fun getAll(): LiveData<List<PokeEntity>>
 
-    @Query("SELECT * FROM PokeEntitiy WHERE id =:key")
-    fun getById(key: Int): LiveData<PokeEntitiy>
+    @Query("SELECT * FROM PokeEntity WHERE id =:key")
+    fun getById(key: Int): LiveData<PokeEntity>
 
-    @Query("DELETE FROM PokeEntitiy WHERE id =:key")
+    @Query("DELETE FROM PokeEntity WHERE id =:key")
     suspend fun deletePokemon(key: Int)
 
 }

@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        adapter = HomeAdapter(viewModel, viewModel.pokemonList)
+        adapter = HomeAdapter(viewModel, viewModel.setCurrentPokemon, viewModel.pokemonList)
         binding.recyclerViewHome.adapter = adapter
         return binding.root
     }

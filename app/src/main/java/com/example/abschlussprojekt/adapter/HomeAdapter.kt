@@ -16,7 +16,10 @@ import com.example.abschlussprojekt.ui.HomeFragmentDirections
 import com.example.abschlussprojekt.ui.SharedViewModel
 import java.util.Locale
 
-class HomeAdapter(private val viewModel: SharedViewModel, private val dataSet: List<Pokemon>) :
+class HomeAdapter(
+    private val viewModel: SharedViewModel,
+    val setCharacter: (Pokemon) -> Unit,
+    private val dataSet: List<Pokemon>) :
     RecyclerView.Adapter<HomeAdapter.ItemHomeViewHolder>() {
 
     private var currentRecyclerView: RecyclerView? = null
@@ -31,7 +34,7 @@ class HomeAdapter(private val viewModel: SharedViewModel, private val dataSet: L
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         currentRecyclerView = recyclerView
-        recyclerView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        recyclerView.setOnScrollChangeListener { v, _, _, _, _ ->
             val layoutManager = recyclerView.layoutManager
             layoutManager?.let {
                 if(layoutManager is GridLayoutManager) {
@@ -77,7 +80,7 @@ class HomeAdapter(private val viewModel: SharedViewModel, private val dataSet: L
 
         holder.binding.cardview.setOnClickListener {
             val navController = holder.itemView.findNavController()
-            viewModel.currentPokemon = pokemon
+            setCharacter(pokemon)
             navController.navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment())
         }
     }
