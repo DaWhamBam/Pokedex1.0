@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.example.abschlussprojekt.R
+import com.example.abschlussprojekt.adapter.HomeAdapter
+import com.example.abschlussprojekt.adapter.LibraryAdapter
 import com.example.abschlussprojekt.databinding.FragmentLibraryBinding
 
 class LibraryFragment : Fragment() {
@@ -27,5 +30,10 @@ class LibraryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.favoritePokemon.observe(viewLifecycleOwner, Observer {
+            var itemAdapter = LibraryAdapter(viewModel, it)
+            binding.recyclerView.adapter = itemAdapter
+        })
     }
 }

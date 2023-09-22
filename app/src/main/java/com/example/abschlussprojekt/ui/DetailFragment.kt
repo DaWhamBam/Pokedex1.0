@@ -20,7 +20,6 @@ class DetailFragment : Fragment() {
     private val viewModel: SharedViewModel by activityViewModels()
     private lateinit var binding: FragmentDetailBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -44,7 +43,7 @@ class DetailFragment : Fragment() {
             binding.btnType1.text = it.type1
             binding.btnType2.text = it.type2
             binding.tvWeightInt.text = it.weight
-            binding.tvHeight.text = it.height
+            binding.tvHeightInt.text = it.height
             binding.tvHpInt.text = it.hpInt
             binding.tvAtkInt.text = it.atkInt
             binding.tvDefInt.text = it.defInt

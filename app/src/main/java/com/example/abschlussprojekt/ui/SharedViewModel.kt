@@ -8,7 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.abschlussprojekt.data.local.getDatabase
 import com.example.abschlussprojekt.data.models.PokeEntity
+import com.example.abschlussprojekt.data.models.Sprites
 import com.example.abschlussprojekt.data.models.pokemon.Pokemon
+import com.example.abschlussprojekt.data.models.pokemonstats.PokemonStat
+import com.example.abschlussprojekt.data.models.pokemonstats.StatsName
+import com.example.abschlussprojekt.data.models.pokemontyps.PokemonTyps
+import com.example.abschlussprojekt.data.models.pokemontyps.Type
 import com.example.abschlussprojekt.data.remote.AppRepository
 import com.example.abschlussprojekt.data.remote.PokeApi
 import kotlinx.coroutines.launch
@@ -81,5 +86,22 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-
+    fun toPokemon(pokemon: PokeEntity): Pokemon {
+        return Pokemon(
+            id = pokemon.id,
+            name = pokemon.name,
+            height = pokemon.height.toInt(),
+            weight = pokemon.weight.toInt(),
+            sprites = Sprites(pokemon.spriteDefaultFront),
+            types = listOf(PokemonTyps(Type(pokemon.type1)), PokemonTyps(Type(pokemon.type2))),
+            stats = listOf(
+                PokemonStat(pokemon.hpInt,0,StatsName("HP")),
+                PokemonStat(pokemon.atkInt, 0, StatsName("ATK")),
+                PokemonStat(pokemon.defInt, 0, StatsName("DEF")),
+                PokemonStat(pokemon.spdInt, 0, StatsName("SPD")),
+                PokemonStat(pokemon.spAtkInt, 0, StatsName("SP-ATK")),
+                PokemonStat(pokemon.spDefInt, 0, StatsName("SP-DEF"))
+                )
+        )
+    }
 }
