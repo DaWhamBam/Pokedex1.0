@@ -41,6 +41,18 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
         }
     }
 
+    suspend fun loadPokemonPage2(searchTerm: String) {
+        _pokeItemList.value?.let { pokemonItemList ->
+            val filteredPokemonList = pokemonItemList.filter { it.name.contains(searchTerm, ignoreCase = true) }
+            val newPokemon = mutableListOf<Pokemon>()
+            filteredPokemonList.forEach {
+                newPokemon.add(api.retrofitService.getPokemon(it.name))
+            }
+            // notify observers
+            _newPokemonPage.value = newPokemon
+        }
+    }
+
     suspend fun insert(pokemon: PokeEntity) {
         try {
             database.pokemonDatabaseDao.insert(pokemon)

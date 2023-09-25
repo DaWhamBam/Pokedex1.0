@@ -60,5 +60,11 @@ class HomeFragment : Fragment() {
         binding.ivLibrarySymbole.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLibraryFragment())
         }
+
+        viewModel.inputText.observe(viewLifecycleOwner, Observer {
+            viewModel.loadPokemonPage2(it)
+            adapter.addPokemonPage()
+        })
+
     }
 }

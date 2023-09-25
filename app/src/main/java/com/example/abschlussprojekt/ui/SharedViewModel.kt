@@ -56,6 +56,12 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    fun loadPokemonPage2(searchTerm: String) {
+        viewModelScope.launch {
+            repository.loadPokemonPage2(searchTerm)
+        }
+    }
+
     fun toPokemonEntity(pokemon: Pokemon): PokeEntity {
         return PokeEntity(
             id = pokemon.id,

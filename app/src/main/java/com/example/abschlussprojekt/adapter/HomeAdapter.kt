@@ -2,6 +2,7 @@ package com.example.abschlussprojekt.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import coil.load
+import com.example.abschlussprojekt.R
 import com.example.abschlussprojekt.data.models.pokemon.Pokemon
 import com.example.abschlussprojekt.data.models.pokemonhomelist.PokemonListItem
 import com.example.abschlussprojekt.databinding.ItemHomeBinding
@@ -26,6 +28,8 @@ class HomeAdapter(
 
     private var isLoading = false
 
+    private var textInputAdapter = viewModel.inputText
+
     public fun addPokemonPage(){
         isLoading = false
         notifyDataSetChanged()
@@ -42,15 +46,19 @@ class HomeAdapter(
                     val totalItemCount: Int = layoutManager.itemCount
                     val lastVisibleItemPos = layoutManager.findLastVisibleItemPosition()
 
-                    if (!isLoading) {
-                        if (lastVisibleItemPos > totalItemCount - 20) { //(lastVisibleItemPos > totalItemCount - 20) {
-                            viewModel.loadPokemonPage(totalItemCount)
-                            isLoading = true
+                    if (R.id.textInput == View.VISIBLE) {
+                        textInputAdapter.value?.let { it1 -> viewModel.loadPokemonPage2(it1) }
+                        Log.e("Adapter", "Inhalt: ${textInputAdapter.value}")
+                    } else {
+                        if (!isLoading) {
+                            if (lastVisibleItemPos > totalItemCount - 20) { //(lastVisibleItemPos > totalItemCount - 20) {
+                                viewModel.loadPokemonPage(totalItemCount)
+                                isLoading = true
+                            }
                         }
                     }
                 }
             }
-
         }
     }
 
@@ -76,7 +84,6 @@ class HomeAdapter(
                 Locale.ROOT
             ) else it.toString()
         }
-
 
         holder.binding.cardview.setOnClickListener {
             val navController = holder.itemView.findNavController()
