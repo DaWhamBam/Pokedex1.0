@@ -29,9 +29,10 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         get() = _currentPokemon
 
     private val repository = AppRepository(PokeApi, database)
-    val pokeItemList = repository.pokeItemList
-    val pokemonList = mutableListOf<Pokemon>()
+    //val pokeItemList = repository.pokeItemList
+    var pokemonList = mutableListOf<Pokemon>()
     val newPokemonPage = repository.newPokemonPage
+    val searchPokemon = repository.searchPokemon
     val favoritePokemon = repository.favoritePokemon
 
     init {

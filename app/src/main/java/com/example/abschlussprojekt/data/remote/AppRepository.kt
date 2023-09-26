@@ -18,20 +18,24 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
     val newPokemonPage: LiveData<MutableList<Pokemon>>
         get() = _newPokemonPage
 
+    private val _searchPokemon = MutableLiveData<MutableList<Pokemon>>(mutableListOf())
+    val searchPokemon: LiveData<MutableList<Pokemon>>
+        get() = _searchPokemon
+
     private val _pokemon = MutableLiveData<Pokemon>()
     val pokemon: LiveData<Pokemon>
         get() = _pokemon
 
     val favoritePokemon = database.pokemonDatabaseDao.getAll()
 
-    suspend fun getPokemonItemList(){
+    suspend fun getPokemonItemList() {
         val response = api.retrofitService.getPokemonItemList()
         _pokeItemList.value = response.results
     }
 
     suspend fun loadPokemonPage(offset: Int) {
         _pokeItemList.value?.let { pokemonItemList ->
-            val loadPokemonList = pokemonItemList.subList(offset, offset+50)
+            val loadPokemonList = pokemonItemList.subList(offset, offset + 50)
             val newPokemon = mutableListOf<Pokemon>()
             loadPokemonList.forEach {
                 newPokemon.add(api.retrofitService.getPokemon(it.name))
@@ -43,13 +47,14 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
 
     suspend fun loadPokemonPage2(searchTerm: String) {
         _pokeItemList.value?.let { pokemonItemList ->
-            val filteredPokemonList = pokemonItemList.filter { it.name.contains(searchTerm, ignoreCase = true) }
+            val filteredPokemonList =
+                pokemonItemList.filter { it.name.contains(searchTerm, ignoreCase = true) }
             val newPokemon = mutableListOf<Pokemon>()
             filteredPokemonList.forEach {
                 newPokemon.add(api.retrofitService.getPokemon(it.name))
             }
             // notify observers
-            _newPokemonPage.value = newPokemon
+            _searchPokemon.value = newPokemon
         }
     }
 

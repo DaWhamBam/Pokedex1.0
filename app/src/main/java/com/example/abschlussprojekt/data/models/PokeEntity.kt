@@ -10,7 +10,7 @@ data class PokeEntity(
     var name: String,
     var height: String,
     var weight: String,
-    var spriteDefaultFront: String,
+    var spriteDefaultFront: String?,
     var type1: String,
     var type2: String,
     var hpInt: String,

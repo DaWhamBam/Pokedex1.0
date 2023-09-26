@@ -11,12 +11,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussprojekt.adapter.HomeAdapter
+import com.example.abschlussprojekt.adapter.SearchAdapter
 import com.example.abschlussprojekt.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private val viewModel: SharedViewModel by activityViewModels()
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: HomeAdapter;
+    private lateinit var adapterSearch: SearchAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,9 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         adapter = HomeAdapter(viewModel, viewModel.setCurrentPokemon, viewModel.pokemonList)
+        adapterSearch = SearchAdapter(viewModel.setCurrentPokemon, listOf())
         binding.recyclerViewHome.adapter = adapter
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -38,14 +42,21 @@ class HomeFragment : Fragment() {
         viewModel.newPokemonPage.observe(viewLifecycleOwner, Observer {
             viewModel.pokemonList.addAll(it)
             adapter.addPokemonPage()
-        }
-        )
+        })
+
+        viewModel.searchPokemon.observe(viewLifecycleOwner, Observer {
+                adapterSearch.setPokemon(it)
+        })
 
         binding.ivSearchSymbole.setOnClickListener {
             if (binding.textInput.visibility == VISIBLE) {
                 binding.textInput.visibility = GONE
+                binding.recyclerViewHome.adapter = adapter
             } else {
                 binding.textInput.visibility = VISIBLE
+                adapterSearch.setPokemon(listOf())
+                binding.textInputText.setText("")
+                binding.recyclerViewHome.adapter = adapterSearch
             }
         }
 

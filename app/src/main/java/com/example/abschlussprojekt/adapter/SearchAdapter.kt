@@ -19,42 +19,14 @@ import com.example.abschlussprojekt.ui.SharedViewModel
 import com.google.android.material.textfield.TextInputLayout
 import java.util.Locale
 
-class HomeAdapter(
-    private val viewModel: SharedViewModel,
+class SearchAdapter(
     val setCharacter: (Pokemon) -> Unit,
-    private val dataSet: List<Pokemon>
-) :
-    RecyclerView.Adapter<HomeAdapter.ItemHomeViewHolder>() {
+    private var dataSet: List<Pokemon>) :
+    RecyclerView.Adapter<SearchAdapter.ItemHomeViewHolder>() {
 
-    private var currentRecyclerView: RecyclerView? = null
-
-    private var isLoading = false
-
-    fun addPokemonPage() {
-        isLoading = false
+    fun setPokemon(searchPoke: List<Pokemon>){
+        dataSet = searchPoke
         notifyDataSetChanged()
-    }
-
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        super.onAttachedToRecyclerView(recyclerView)
-        currentRecyclerView = recyclerView
-        recyclerView.setOnScrollChangeListener { v, _, _, _, _ ->
-            val layoutManager = recyclerView.layoutManager
-            layoutManager?.let {
-                if (layoutManager is GridLayoutManager) {
-                    val totalItemCount: Int = layoutManager.itemCount
-                    val lastVisibleItemPos = layoutManager.findLastVisibleItemPosition()
-
-                    if (!isLoading) {
-                        if (lastVisibleItemPos > totalItemCount - 20) { //(lastVisibleItemPos > totalItemCount - 20) {
-                            viewModel.loadPokemonPage(totalItemCount)
-                            isLoading = true
-
-                        }
-                    }
-                }
-            }
-        }
     }
 
     inner class ItemHomeViewHolder(val binding: ItemHomeBinding) :
