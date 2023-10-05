@@ -11,8 +11,6 @@ import com.example.abschlussprojekt.data.models.pokemonhomelist.PokemonListItem
 class AppRepository(private val api: PokeApi, private val database: PokemonDatabase) {
 
     private val _pokeItemList = MutableLiveData<List<PokemonListItem>>()
-    val pokeItemList: LiveData<List<PokemonListItem>>
-        get() = _pokeItemList
 
     private val _newPokemonPage = MutableLiveData<MutableList<Pokemon>>(mutableListOf())
     val newPokemonPage: LiveData<MutableList<Pokemon>>
@@ -33,6 +31,13 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
         _pokeItemList.value = response.results
     }
 
+    /* So that hundreds of Pokemon are not loaded at the same time and the loading times of the app are too long,
+    only a certain amount of Pokemon are loaded here.
+    This is also important for the reason that most of the information is fetched with another Api Call.
+    Thus, the names of the Pokemon are inserted into the other ApiCall and loaded.
+    As soon as there are only a certain amount of Pokemon left in the Adapter/RecyclerView this function starts again.
+    Here you can load the Pokemon that should be displayed on the home screen when the app is started.
+     */
     suspend fun loadPokemonPage(offset: Int) {
         _pokeItemList.value?.let { pokemonItemList ->
             val loadPokemonList = pokemonItemList.subList(offset, offset + 50)
@@ -45,6 +50,7 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
         }
     }
 
+    // Only Pokemon that should be loaded based on the search criteria are loaded here.
     suspend fun loadPokemonPage2(searchTerm: String) {
         _pokeItemList.value?.let { pokemonItemList ->
             val filteredPokemonList =

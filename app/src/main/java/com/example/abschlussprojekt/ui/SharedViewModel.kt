@@ -29,7 +29,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         get() = _currentPokemon
 
     private val repository = AppRepository(PokeApi, database)
-    //val pokeItemList = repository.pokeItemList
     var pokemonList = mutableListOf<Pokemon>()
     val newPokemonPage = repository.newPokemonPage
     val searchPokemon = repository.searchPokemon
@@ -39,6 +38,8 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         loadPokemonList()
     }
 
+
+    // Hier is die Variable die dann im Home Adapter genutzt wird. War nur ein Test damit ich es mal gemacht habe
     val setCurrentPokemon : (Pokemon) -> Unit = {
         val newEntity = toPokemonEntity(it)
         _currentPokemon.postValue(newEntity)

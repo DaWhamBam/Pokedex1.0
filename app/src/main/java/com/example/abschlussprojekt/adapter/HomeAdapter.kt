@@ -21,24 +21,23 @@ import java.util.Locale
 
 class HomeAdapter(
     private val viewModel: SharedViewModel,
-    val setCharacter: (Pokemon) -> Unit,
+    val setCharacter: (Pokemon) -> Unit,  // I have tested here how individual things can be fetched from the ViewModel.
     private val dataSet: List<Pokemon>
 ) :
     RecyclerView.Adapter<HomeAdapter.ItemHomeViewHolder>() {
 
-    private var currentRecyclerView: RecyclerView? = null
-
     private var isLoading = false
 
+    // The function helps so that only a certain amount of Pokemon are loaded and the adapter is updated.
     fun addPokemonPage() {
         isLoading = false
         notifyDataSetChanged()
     }
 
+ // When the RecyclerView scrolls, it registers how many Pokemon can still be displayed until Pokemon need to be reloaded.
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-        currentRecyclerView = recyclerView
-        recyclerView.setOnScrollChangeListener { v, _, _, _, _ ->
+        recyclerView.setOnScrollChangeListener { _, _, _, _, _ ->
             val layoutManager = recyclerView.layoutManager
             layoutManager?.let {
                 if (layoutManager is GridLayoutManager) {
@@ -46,10 +45,9 @@ class HomeAdapter(
                     val lastVisibleItemPos = layoutManager.findLastVisibleItemPosition()
 
                     if (!isLoading) {
-                        if (lastVisibleItemPos > totalItemCount - 20) { //(lastVisibleItemPos > totalItemCount - 20) {
-                            viewModel.loadPokemonPage(totalItemCount)
+                        if (lastVisibleItemPos > totalItemCount - 20) {
+                            viewModel.loadPokemonPage(totalItemCount) // here the Pokemon are actually loaded
                             isLoading = true
-
                         }
                     }
                 }

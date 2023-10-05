@@ -29,6 +29,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        /*
+        The Homescreen RecyclerView is felt by two different adapters. On the one hand, the default
+        filling when navigating on the homescreen and on the other hand when searching for a Pokemon.
+         */
         adapter = HomeAdapter(viewModel, viewModel.setCurrentPokemon, viewModel.pokemonList)
         adapterSearch = SearchAdapter(viewModel.setCurrentPokemon, listOf())
         binding.recyclerViewHome.adapter = adapter
@@ -39,15 +43,24 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /*
+        There are two different lists. The standard list and the search list. This was done so that
+        when the search is ended the standard list does not have to be refilled but the already
+        loaded Pokemon are displayed again.
+         */
         viewModel.newPokemonPage.observe(viewLifecycleOwner, Observer {
             viewModel.pokemonList.addAll(it)
             adapter.addPokemonPage()
         })
 
         viewModel.searchPokemon.observe(viewLifecycleOwner, Observer {
-                adapterSearch.setPokemon(it)
+            adapterSearch.setPokemon(it)
         })
 
+        /*
+        By activating and deactivating the search, you can decide with which adapters the
+        RecyclerView should be filled.
+         */
         binding.ivSearchSymbole.setOnClickListener {
             if (binding.textInput.visibility == VISIBLE) {
                 binding.textInput.visibility = GONE
@@ -60,6 +73,10 @@ class HomeFragment : Fragment() {
             }
         }
 
+        /*
+        Under Construction
+        Here you can filter the individual Pokemon
+         */
         binding.ivFilterSymbole.setOnClickListener {
             if (binding.cardviewFilter.visibility == VISIBLE) {
                 binding.cardviewFilter.visibility = GONE
@@ -76,6 +93,5 @@ class HomeFragment : Fragment() {
             viewModel.loadPokemonPage2(it)
             adapter.addPokemonPage()
         })
-
     }
 }
