@@ -22,29 +22,38 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     private val database = getDatabase(application)
 
-    var inputText = MutableLiveData<String>()
+    var inputText = MutableLiveData<String>()  // The search input is recorded live and observed in the home fragment.
 
     private val _currentPokemon : MutableLiveData<PokeEntity> = MutableLiveData()
-    val currentPokemon : LiveData<PokeEntity>
+    val currentPokemon : LiveData<PokeEntity>  // The current selected Pokemon as entity
         get() = _currentPokemon
 
     private val repository = AppRepository(PokeApi, database)
-    var pokemonList = mutableListOf<Pokemon>()
-    val newPokemonPage = repository.newPokemonPage
-    val searchPokemon = repository.searchPokemon
-    val favoritePokemon = repository.favoritePokemon
+    var pokemonList = mutableListOf<Pokemon>()  // All Pokemon with name only
+    val newPokemonPage = repository.newPokemonPage // All Pokemon currently loaded with full details
+    val searchPokemon = repository.searchPokemon  // The searched Pokemon only with name
+    val favoritePokemon = repository.favoritePokemon // The favorite Pokemon with all the details
 
     init {
         loadPokemonList()
     }
 
 
-    // Hier is die Variable die dann im Home Adapter genutzt wird. War nur ein Test damit ich es mal gemacht habe
+    /*
+    Here is the variable that will be used in the Home Adapter. It was only a test so that I have
+    done it once. At the same time the Pokemon is converted to a
+    PokemonEntity to be used further. For the database for example.
+     */
     val setCurrentPokemon : (Pokemon) -> Unit = {
         val newEntity = toPokemonEntity(it)
         _currentPokemon.postValue(newEntity)
     }
 
+
+    /*
+    The function ensures that all Pokemon with names and 50 Pokemon with
+    all details are loaded at startup.
+     */
     fun loadPokemonList() {
         viewModelScope.launch {
             repository.getPokemonItemList()

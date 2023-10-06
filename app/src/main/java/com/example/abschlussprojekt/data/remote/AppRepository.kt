@@ -10,26 +10,33 @@ import com.example.abschlussprojekt.data.models.pokemonhomelist.PokemonListItem
 
 class AppRepository(private val api: PokeApi, private val database: PokemonDatabase) {
 
-    private val _pokeItemList = MutableLiveData<List<PokemonListItem>>()
+    private val _pokeItemList = MutableLiveData<List<PokemonListItem>>() // All Pokemon in one list but only the names of them
 
-    private val _newPokemonPage = MutableLiveData<MutableList<Pokemon>>(mutableListOf())
+    private val _newPokemonPage = MutableLiveData<MutableList<Pokemon>>(mutableListOf()) //All loaded Pokemon at the current state are here with all the information.  Will be expanded when scrolling the home page.
     val newPokemonPage: LiveData<MutableList<Pokemon>>
         get() = _newPokemonPage
 
-    private val _searchPokemon = MutableLiveData<MutableList<Pokemon>>(mutableListOf())
+    private val _searchPokemon = MutableLiveData<MutableList<Pokemon>>(mutableListOf()) //here are stored the Pokemon that are loaded during the search. It is emptied when the focus goes away from the search.
     val searchPokemon: LiveData<MutableList<Pokemon>>
         get() = _searchPokemon
-
+/*
     private val _pokemon = MutableLiveData<Pokemon>()
     val pokemon: LiveData<Pokemon>
         get() = _pokemon
 
-    val favoritePokemon = database.pokemonDatabaseDao.getAll()
+ */
 
+    val favoritePokemon = database.pokemonDatabaseDao.getAll() //the stored Pokemon from the database are here
+
+
+    /*
+    the Api call that loads all Pokemon but only the names without details
+     */
     suspend fun getPokemonItemList() {
         val response = api.retrofitService.getPokemonItemList()
         _pokeItemList.value = response.results
     }
+
 
     /* So that hundreds of Pokemon are not loaded at the same time and the loading times of the app are too long,
     only a certain amount of Pokemon are loaded here.
@@ -50,6 +57,7 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
         }
     }
 
+
     // Only Pokemon that should be loaded based on the search criteria are loaded here.
     suspend fun loadPokemonPage2(searchTerm: String) {
         _pokeItemList.value?.let { pokemonItemList ->
@@ -63,6 +71,11 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
             _searchPokemon.value = newPokemon
         }
     }
+
+
+    /*
+    the functions to save or remove Pokemon to the database.
+     */
 
     suspend fun insert(pokemon: PokeEntity) {
         try {
