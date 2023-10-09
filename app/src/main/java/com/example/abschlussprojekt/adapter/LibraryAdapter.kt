@@ -3,22 +3,19 @@ package com.example.abschlussprojekt.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.abschlussprojekt.R
 import com.example.abschlussprojekt.data.models.PokeEntity
-import com.example.abschlussprojekt.data.models.pokemon.Pokemon
-import com.example.abschlussprojekt.databinding.ItemHomeBinding
 import com.example.abschlussprojekt.databinding.ItemLibraryBinding
-import com.example.abschlussprojekt.ui.HomeFragmentDirections
 import com.example.abschlussprojekt.ui.LibraryFragmentDirections
 import com.example.abschlussprojekt.ui.SharedViewModel
 import java.util.Locale
 
 class LibraryAdapter(
     val viewModel: SharedViewModel,
-    private val dataSet: List<PokeEntity>) :
+    private val dataSet: List<PokeEntity>
+) :
     RecyclerView.Adapter<LibraryAdapter.ItemLibraryHolder>() {
 
     inner class ItemLibraryHolder(val binding: ItemLibraryBinding) :

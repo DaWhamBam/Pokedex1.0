@@ -1,302 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/homeback"
-    tools:context=".ui.LibraryFragment">
+    tools:context=".ui.HomeFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.abschlussprojekt.ui.SharedViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#00FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/homeback"
+        >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="50dp"
+            android:background="#00FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tv_pokedex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:fontFamily="@font/josefin_sans_bold"
-                android:text="Library"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_search_symbole"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/baseline_search_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
+                <TextView
+                    android:id="@+id/tv_pokedex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/josefin_sans_bold"
+                    android:text="Library"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/iv_filter_symbole"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/baseline_filter_list_24"
-                app:layout_constraintEnd_toStartOf="@id/iv_search_symbole"
-                app:layout_constraintTop_toTopOf="@id/iv_search_symbole"
-                app:tint="@color/white" />
+                <ImageView
+                    android:id="@+id/iv_home_symbole"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="32dp"
+                    android:src="@drawable/baseline_home_24"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:tint="@color/white" />
 
-            <ImageView
-                android:id="@+id/iv_home_symbole"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/baseline_home_24"
-                app:layout_constraintEnd_toStartOf="@id/iv_filter_symbole"
-                app:layout_constraintTop_toTopOf="@id/iv_filter_symbole"
-                app:tint="@color/white"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
 
-    </androidx.appcompat.widget.Toolbar>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:background="#00FFFFFF"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:background="#00FFFFFF"
+            android:visibility="gone"
             android:hint="Suche"
-            android:maxLines="1"
-            android:text="@={viewModel.inputText}"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Suche"
+                android:maxLines="1"
+                android:text="@={viewModel.inputText}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardview_filter"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/home_back"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInput">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview_filter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/home_back"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInput">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_steel"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="4dp"
-                android:src="@drawable/steel_symbole"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_bug"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/bug_symbol"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_steel"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_steel"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/steel_symbole"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_dragon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/dragon_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_bug"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_bug"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/bug_symbol"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_steel"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_electric"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/electric_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_dragon"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_dragon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/dragon_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_bug"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_fairy"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/fairy_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_electric"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_electric"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/electric_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_dragon"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_fighting"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/fighting_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_fairy"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_fairy"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/fairy_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_electric"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_fire"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/fire_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_fighting"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_fighting"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/fighting_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_fairy"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_flying"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/flying_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_fire"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_fire"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/fire_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_fighting"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_ghost"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/ghost_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_flying"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_flying"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/flying_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_fire"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_ground"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/ground_symbole"
-                app:layout_constraintStart_toStartOf="@id/iv_ts_steel"
-                app:layout_constraintTop_toBottomOf="@id/iv_ts_steel"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_ghost"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/ghost_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_flying"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_steel"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_ice"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/ice_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_ground"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_ground"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ground_symbole"
+                    app:layout_constraintStart_toStartOf="@id/iv_ts_steel"
+                    app:layout_constraintTop_toBottomOf="@id/iv_ts_steel"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_normal"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/normal_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_ice"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_ice"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/ice_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_ground"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_plant"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/plant_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_normal"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_normal"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/normal_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_ice"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_poisen"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/poisen_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_plant"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_plant"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/plant_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_normal"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_psych"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/psych_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_poisen"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_poisen"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/poisen_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_plant"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_rock"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/rock_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_psych"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_psych"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/psych_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_poisen"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_unlight"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/unlight_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_rock"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_rock"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/rock_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_psych"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_water"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/water_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_unlight"
-                app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
-                app:shapeAppearanceOverlay="@style/stroke_kreis" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_unlight"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/unlight_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_rock"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_ts_water"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/water_symbole"
+                    app:layout_constraintStart_toEndOf="@id/iv_ts_unlight"
+                    app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
+                    app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardview_filter"
-        app:spanCount="2"
-        tools:listitem="@layout/item_home" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardview_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:spanCount="2"
+            tools:listitem="@layout/item_home" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

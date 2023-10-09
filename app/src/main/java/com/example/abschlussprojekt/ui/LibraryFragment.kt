@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.example.abschlussprojekt.R
-import com.example.abschlussprojekt.adapter.HomeAdapter
+import androidx.navigation.fragment.findNavController
 import com.example.abschlussprojekt.adapter.LibraryAdapter
+import com.example.abschlussprojekt.adapter.SearchAdapter
 import com.example.abschlussprojekt.databinding.FragmentLibraryBinding
 
 class LibraryFragment : Fragment() {
@@ -35,5 +35,9 @@ class LibraryFragment : Fragment() {
             var itemAdapter = LibraryAdapter(viewModel, it)
             binding.recyclerView.adapter = itemAdapter
         })
+
+        binding.ivHomeSymbole.setOnClickListener {
+            findNavController().navigate(LibraryFragmentDirections.actionLibraryFragmentToHomeFragment())
+        }
     }
 }
