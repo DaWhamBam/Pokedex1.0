@@ -37,12 +37,25 @@
             app:layout_constraintTop_toTopOf="@id/iv_back_arrow" />
 
         <TextView
+            android:id="@+id/tv_poke_number_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/josefin_sans"
+            android:text="#"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_poke_id"
+            app:layout_constraintTop_toTopOf="@id/tv_poke_id"
+            app:layout_constraintBottom_toBottomOf="@id/tv_poke_id"/>
+
+        <TextView
             android:id="@+id/tv_poke_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/josefin_sans_bold"
-            android:text="#001"
+            android:text="001"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_pokedex"
