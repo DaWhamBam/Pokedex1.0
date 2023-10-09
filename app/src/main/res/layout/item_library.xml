@@ -5,26 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_margin="5dp"
-    android:backgroundTint="@color/fire"
     app:cardCornerRadius="15dp"
     app:cardElevation="8dp"
     android:id="@+id/cardview">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
         android:layout_width="match_parent"
+        android:background="@color/fire"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_pokenumber"
+            android:id="@+id/tv_poke_number_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:fontFamily="@font/josefin_sans"
-            android:text="#006"
+            android:text="#"
+            android:layout_marginStart="8dp"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_poke_id"
+            app:layout_constraintTop_toTopOf="@id/tv_poke_id"
+            app:layout_constraintBottom_toBottomOf="@id/tv_poke_id"/>
+
+        <TextView
+            android:id="@+id/tv_poke_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/josefin_sans"
+            android:text="006"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/tv_poke_number_symbol"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
