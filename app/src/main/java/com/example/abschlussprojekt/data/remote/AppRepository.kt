@@ -19,6 +19,10 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
     private val _searchPokemon = MutableLiveData<MutableList<Pokemon>>(mutableListOf()) //here are stored the Pokemon that are loaded during the search. It is emptied when the focus goes away from the search.
     val searchPokemon: LiveData<MutableList<Pokemon>>
         get() = _searchPokemon
+
+    private val _typePokemon = MutableLiveData<MutableList<Pokemon>>(mutableListOf()) //here are stored the Pokemon that are loaded during the search. It is emptied when the focus goes away from the search.
+    val typePokemon: LiveData<MutableList<Pokemon>>
+        get() = _typePokemon
 /*
     private val _pokemon = MutableLiveData<Pokemon>()
     val pokemon: LiveData<Pokemon>
@@ -59,12 +63,12 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
 
 
     // Only Pokemon that should be loaded based on the search criteria are loaded here.
-    suspend fun loadPokemonPage2(searchTerm: String) {
+    suspend fun loadSearchPokemon(searchTerm: String) {
         _pokeItemList.value?.let { pokemonItemList ->
-            val filteredPokemonList =
+            val searchedPokemonList =
                 pokemonItemList.filter { it.name.contains(searchTerm, ignoreCase = true) }
             val newPokemon = mutableListOf<Pokemon>()
-            filteredPokemonList.forEach {
+            searchedPokemonList.forEach {
                 newPokemon.add(api.retrofitService.getPokemon(it.name))
             }
             // notify observers

@@ -241,7 +241,8 @@
                 app:shapeAppearanceOverlay="@style/stroke_kreis" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_ts_plant"
+                android:id="@+id/iv_ts_grass"
+
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -256,7 +257,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
                 android:src="@drawable/poisen_symbole"
-                app:layout_constraintStart_toEndOf="@id/iv_ts_plant"
+                app:layout_constraintStart_toEndOf="@id/iv_ts_grass"
                 app:layout_constraintTop_toTopOf="@id/iv_ts_ground"
                 app:shapeAppearanceOverlay="@style/stroke_kreis" />
 

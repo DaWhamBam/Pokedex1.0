@@ -1,7 +1,6 @@
 package com.example.abschlussprojekt.ui
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -33,6 +32,11 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val newPokemonPage = repository.newPokemonPage // All Pokemon currently loaded with full details
     val searchPokemon = repository.searchPokemon  // The searched Pokemon only with name
     val favoritePokemon = repository.favoritePokemon // The favorite Pokemon with all the details
+    var filterPokemon = newPokemonPage.value
+
+    private var _newfilter : MutableLiveData<List<Pokemon>> = MutableLiveData()
+    val newfilter : LiveData<List<Pokemon>>
+        get() = _newfilter
 
     init {
         loadPokemonList()
@@ -47,6 +51,10 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val setCurrentPokemon : (Pokemon) -> Unit = {
         val newEntity = toPokemonEntity(it)
         _currentPokemon.postValue(newEntity)
+    }
+
+    fun filteredPokemonList(type: String) {
+        _newfilter.value = filterPokemon?.filter { it.types.first().type.name == type}!!
     }
 
 
@@ -67,9 +75,9 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun loadPokemonPage2(searchTerm: String) {
+    fun loadSearchPokemon(searchTerm: String) {
         viewModelScope.launch {
-            repository.loadPokemonPage2(searchTerm)
+            repository.loadSearchPokemon(searchTerm)
         }
     }
 

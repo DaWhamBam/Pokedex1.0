@@ -2,6 +2,7 @@ package com.example.abschlussprojekt.data.remote
 
 import com.example.abschlussprojekt.data.models.pokemonhomelist.DataSourcePokemon
 import com.example.abschlussprojekt.data.models.pokemon.Pokemon
+import com.example.abschlussprojekt.data.models.pokemontyps.Type
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -28,8 +29,8 @@ interface PokemonApiService {
     @GET("pokemon/{name}")
     suspend fun getPokemon(@Path("name") name: String): Pokemon
 
-    //@GET("pokemon-species/{name}")
-    //suspend fun getPokemonDescription(@Path("name") name: String): PokemonSpecies
+    @GET("type/{name}")
+    suspend fun getPokemonType(@Path("name") name: String): Type
 }
 
 object PokeApi {
