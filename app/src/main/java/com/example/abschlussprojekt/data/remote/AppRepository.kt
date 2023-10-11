@@ -52,7 +52,9 @@ class AppRepository(private val api: PokeApi, private val database: PokemonDatab
     suspend fun loadPokemonPage(offset: Int) {
         _pokeItemList.value?.let { pokemonItemList ->
             val loadPokemonList = pokemonItemList.subList(offset, offset + 50)
+
             val newPokemon = mutableListOf<Pokemon>()
+
             loadPokemonList.forEach {
                 newPokemon.add(api.retrofitService.getPokemon(it.name))
             }

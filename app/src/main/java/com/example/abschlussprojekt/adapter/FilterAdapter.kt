@@ -20,7 +20,7 @@ import com.google.android.material.textfield.TextInputLayout
 import java.util.Locale
 
 class FilterAdapter(
-    val setCharacter: (Pokemon) -> Unit,
+    private val viewModel: SharedViewModel,
     private var dataSet: List<Pokemon>) :
     RecyclerView.Adapter<FilterAdapter.ItemHomeViewHolder>() {
 
@@ -78,7 +78,7 @@ class FilterAdapter(
 
         holder.binding.cardview.setOnClickListener {
             val navController = holder.itemView.findNavController()
-            setCharacter(pokemon)
+            viewModel.setCurrentPokemon(viewModel.toPokemonEntity(pokemon))
             navController.navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment())
         }
     }

@@ -19,5 +19,4 @@ data class PokeEntity(
     var spdInt: String,
     var spDefInt: String,
     var spAtkInt: String,
-
 )

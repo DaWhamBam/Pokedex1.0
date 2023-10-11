@@ -1,6 +1,7 @@
 package com.example.abschlussprojekt.ui
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,12 +28,15 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val currentPokemon : LiveData<PokeEntity>  // The current selected Pokemon as entity
         get() = _currentPokemon
 
+    private val _typeName = MutableLiveData<String>()
+    val typeName: LiveData<String>
+        get() = _typeName
+
     private val repository = AppRepository(PokeApi, database)
-    var pokemonList = mutableListOf<Pokemon>()  // All Pokemon with name only
-    val newPokemonPage = repository.newPokemonPage // All Pokemon currently loaded with full details
-    val searchPokemon = repository.searchPokemon  // The searched Pokemon only with name
-    val favoritePokemon = repository.favoritePokemon // The favorite Pokemon with all the details
-    var filterPokemon = newPokemonPage.value
+    var pokemonList = mutableListOf<Pokemon>()
+    val newPokemonPage = repository.newPokemonPage
+    val searchPokemon = repository.searchPokemon
+    val favoritePokemon = repository.favoritePokemon
 
     private var _newfilter : MutableLiveData<List<Pokemon>> = MutableLiveData()
     val newfilter : LiveData<List<Pokemon>>
@@ -43,18 +47,23 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     }
 
 
+    fun setTypeName(typeName: String) {
+        _typeName.value = typeName
+    }
+
+
     /*
     Here is the variable that will be used in the Home Adapter. It was only a test so that I have
     done it once. At the same time the Pokemon is converted to a
     PokemonEntity to be used further. For the database for example.
      */
-    val setCurrentPokemon : (Pokemon) -> Unit = {
-        val newEntity = toPokemonEntity(it)
-        _currentPokemon.postValue(newEntity)
+    fun setCurrentPokemon(pokemon: PokeEntity) {
+        _currentPokemon.postValue(pokemon)
     }
 
-    fun filteredPokemonList(type: String) {
-        _newfilter.value = filterPokemon?.filter { it.types.first().type.name == type}!!
+
+    fun filteredPokemonList() {
+        _newfilter.value = pokemonList.filter { it.types.first().type.name == _typeName.value}
     }
 
 
@@ -70,6 +79,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun loadPokemonPage(offset: Int) {
+        Log.d("", "loading page with offset $offset")
         viewModelScope.launch {
             repository.loadPokemonPage(offset)
         }
@@ -81,23 +91,21 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun toPokemonEntity(pokemon: Pokemon): PokeEntity {
-        return PokeEntity(
-            id = pokemon.id,
-            name = pokemon.name,
-            height = pokemon.height.toString(),
-            weight = pokemon.weight.toString(),
-            spriteDefaultFront = pokemon.sprites.front_default,
-            type1 = pokemon.types.first().type.name,
-            type2 = pokemon.types.last().type.name,
-            hpInt = pokemon.stats[0].base_stat,
-            atkInt = pokemon.stats[1].base_stat,
-            defInt = pokemon.stats[2].base_stat,
-            spdInt = pokemon.stats[3].base_stat,
-            spDefInt = pokemon.stats[4].base_stat,
-            spAtkInt = pokemon.stats[5].base_stat
-        )
-    }
+    fun toPokemonEntity(pokemon: Pokemon): PokeEntity = PokeEntity(
+        id = pokemon.id,
+        name = pokemon.name,
+        height = pokemon.height.toString(),
+        weight = pokemon.weight.toString(),
+        spriteDefaultFront = pokemon.sprites.front_default,
+        type1 = pokemon.types.first().type.name,
+        type2 = pokemon.types.last().type.name,
+        hpInt = pokemon.stats[0].base_stat,
+        atkInt = pokemon.stats[1].base_stat,
+        defInt = pokemon.stats[2].base_stat,
+        spdInt = pokemon.stats[3].base_stat,
+        spDefInt = pokemon.stats[4].base_stat,
+        spAtkInt = pokemon.stats[5].base_stat
+    )
 
     fun insertPoke() {
         viewModelScope.launch {
@@ -111,22 +119,20 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun toPokemon(pokemon: PokeEntity): Pokemon {
-        return Pokemon(
-            id = pokemon.id,
-            name = pokemon.name,
-            height = pokemon.height.toInt(),
-            weight = pokemon.weight.toInt(),
-            sprites = Sprites(pokemon.spriteDefaultFront),
-            types = listOf(PokemonTyps(Type(pokemon.type1)), PokemonTyps(Type(pokemon.type2))),
-            stats = listOf(
-                PokemonStat(pokemon.hpInt,0,StatsName("HP")),
-                PokemonStat(pokemon.atkInt, 0, StatsName("ATK")),
-                PokemonStat(pokemon.defInt, 0, StatsName("DEF")),
-                PokemonStat(pokemon.spdInt, 0, StatsName("SPD")),
-                PokemonStat(pokemon.spAtkInt, 0, StatsName("SP-ATK")),
-                PokemonStat(pokemon.spDefInt, 0, StatsName("SP-DEF"))
-                )
-        )
-    }
+    fun toPokemon(pokemon: PokeEntity): Pokemon = Pokemon(
+        id = pokemon.id,
+        name = pokemon.name,
+        height = pokemon.height.toInt(),
+        weight = pokemon.weight.toInt(),
+        sprites = Sprites(pokemon.spriteDefaultFront),
+        types = listOf(PokemonTyps(Type(pokemon.type1)), PokemonTyps(Type(pokemon.type2))),
+        stats = listOf(
+            PokemonStat(pokemon.hpInt,0,StatsName("HP")),
+            PokemonStat(pokemon.atkInt, 0, StatsName("ATK")),
+            PokemonStat(pokemon.defInt, 0, StatsName("DEF")),
+            PokemonStat(pokemon.spdInt, 0, StatsName("SPD")),
+            PokemonStat(pokemon.spAtkInt, 0, StatsName("SP-ATK")),
+            PokemonStat(pokemon.spDefInt, 0, StatsName("SP-DEF"))
+            )
+    )
 }

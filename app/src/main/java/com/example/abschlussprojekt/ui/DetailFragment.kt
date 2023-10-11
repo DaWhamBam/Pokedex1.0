@@ -286,7 +286,7 @@ class DetailFragment : Fragment() {
             findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToHomeFragment())
         }
 
-        viewModel.favoritePokemon.observe(viewLifecycleOwner, Observer {
+        viewModel.favoritePokemon.observe(viewLifecycleOwner) {
             if (it.contains(viewModel.currentPokemon.value!!)) {
                 binding.ivFavorite.setImageResource(R.drawable.baseline_favorite_24)
                 binding.ivFavorite.setOnClickListener {
@@ -298,7 +298,6 @@ class DetailFragment : Fragment() {
                     viewModel.insertPoke()
                 }
             }
-        })
-
+        }
     }
 }

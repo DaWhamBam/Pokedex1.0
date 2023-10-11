@@ -68,7 +68,7 @@ class LibraryAdapter(
 
         holder.binding.cardview.setOnClickListener {
             val navController = holder.itemView.findNavController()
-            viewModel.setCurrentPokemon(viewModel.toPokemon(pokemon))
+            viewModel.setCurrentPokemon(pokemon)
             navController.navigate(LibraryFragmentDirections.actionLibraryFragmentToDetailFragment())
         }
     }

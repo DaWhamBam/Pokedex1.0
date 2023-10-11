@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import coil.load
 import com.example.abschlussprojekt.R
+import com.example.abschlussprojekt.data.models.PokeEntity
 import com.example.abschlussprojekt.data.models.pokemon.Pokemon
 import com.example.abschlussprojekt.data.models.pokemonhomelist.PokemonListItem
 import com.example.abschlussprojekt.databinding.ItemHomeBinding
@@ -20,7 +21,7 @@ import com.google.android.material.textfield.TextInputLayout
 import java.util.Locale
 
 class SearchAdapter(
-    val setCharacter: (Pokemon) -> Unit,
+    private val viewModel: SharedViewModel,
     private var dataSet: List<Pokemon>) :
     RecyclerView.Adapter<SearchAdapter.ItemHomeViewHolder>() {
 
@@ -78,7 +79,7 @@ class SearchAdapter(
 
         holder.binding.cardview.setOnClickListener {
             val navController = holder.itemView.findNavController()
-            setCharacter(pokemon)
+            viewModel.setCurrentPokemon(viewModel.toPokemonEntity(pokemon))
             navController.navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment())
         }
     }

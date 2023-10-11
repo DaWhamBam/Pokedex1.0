@@ -116,11 +116,13 @@
         app:layout_constraintTop_toBottomOf="@id/textInput">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/typeConstraint"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_steel"
+                android:tag="filter_steel"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="9dp"
@@ -132,6 +134,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_bug"
+                android:tag="filter_bug"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -142,6 +145,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_dragon"
+                android:tag="filter_dragon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -152,6 +156,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_electric"
+                android:tag="filter_electric"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -162,6 +167,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_fairy"
+                android:tag="filter_fairy"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -172,6 +178,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_fighting"
+                android:tag="filter_fighting"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -182,6 +189,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_fire"
+                android:tag="filter_fire"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -192,6 +200,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_flying"
+                android:tag="filter_flying"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -202,6 +211,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_ghost"
+                android:tag="filter_ghost"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -212,6 +222,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_ground"
+                android:tag="filter_ground"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
@@ -222,6 +233,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_ice"
+                android:tag="filter_ice"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -232,6 +244,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_normal"
+                android:tag="filter_normal"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -242,7 +255,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_grass"
-
+                android:tag="filter_grass"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -253,6 +266,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_poisen"
+                android:tag="filter_poisen"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -263,6 +277,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_psych"
+                android:tag="filter_psych"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -273,6 +288,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_rock"
+                android:tag="filter_rock"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -283,6 +299,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_unlight"
+                android:tag="filter_unlight"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
@@ -293,6 +310,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_ts_water"
+                android:tag="filter_water"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="4dp"
