@@ -22,10 +22,10 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     private val database = getDatabase(application)
 
-    var inputText = MutableLiveData<String>()  // The search input is recorded live and observed in the home fragment.
+    var inputText = MutableLiveData<String>()
 
     private val _currentPokemon : MutableLiveData<PokeEntity> = MutableLiveData()
-    val currentPokemon : LiveData<PokeEntity>  // The current selected Pokemon as entity
+    val currentPokemon : LiveData<PokeEntity>
         get() = _currentPokemon
 
     private val _typeName = MutableLiveData<String>()
@@ -52,11 +52,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     }
 
 
-    /*
-    Here is the variable that will be used in the Home Adapter. It was only a test so that I have
-    done it once. At the same time the Pokemon is converted to a
-    PokemonEntity to be used further. For the database for example.
-     */
     fun setCurrentPokemon(pokemon: PokeEntity) {
         _currentPokemon.postValue(pokemon)
     }
@@ -67,16 +62,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     }
 
 
-    /*
-    The function ensures that all Pokemon with names and 50 Pokemon with
-    all details are loaded at startup.
-     */
     fun loadPokemonList() {
         viewModelScope.launch {
             repository.getPokemonItemList()
             repository.loadPokemonPage(0)
         }
     }
+
 
     fun loadPokemonPage(offset: Int) {
         Log.d("", "loading page with offset $offset")
@@ -85,11 +77,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+
     fun loadSearchPokemon(searchTerm: String) {
         viewModelScope.launch {
             repository.loadSearchPokemon(searchTerm)
         }
     }
+
 
     fun toPokemonEntity(pokemon: Pokemon): PokeEntity = PokeEntity(
         id = pokemon.id,
@@ -107,17 +101,20 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         spAtkInt = pokemon.stats[5].base_stat
     )
 
+
     fun insertPoke() {
         viewModelScope.launch {
             repository.insert(currentPokemon.value!!)
         }
     }
 
+
     fun deletePoke() {
         viewModelScope.launch {
             repository.delete(currentPokemon.value!!.id)
         }
     }
+
 
     fun toPokemon(pokemon: PokeEntity): Pokemon = Pokemon(
         id = pokemon.id,

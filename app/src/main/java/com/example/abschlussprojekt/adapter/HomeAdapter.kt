@@ -31,13 +31,13 @@ class HomeAdapter(
     private var isLoading = false
     var autoscrollEnabled = true
 
-    // The function helps so that only a certain amount of Pokemon are loaded and the adapter is updated.
+
     fun addPokemonPage() {
         isLoading = false
         notifyDataSetChanged()
     }
 
- // When the RecyclerView scrolls, it registers how many Pokemon can still be displayed until Pokemon need to be reloaded.
+
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         recyclerView.setOnScrollChangeListener { _, _, _, _, _ ->
@@ -49,7 +49,7 @@ class HomeAdapter(
 
                     if (autoscrollEnabled && !isLoading) {
                         if (lastVisibleItemPos > totalItemCount - 20) {
-                            viewModel.loadPokemonPage(totalItemCount) // here the Pokemon are actually loaded
+                            viewModel.loadPokemonPage(totalItemCount)
                             isLoading = true
                         }
                     }
