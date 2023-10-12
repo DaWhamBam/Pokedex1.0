@@ -283,7 +283,13 @@ class DetailFragment : Fragment() {
 
 
         binding.ivBackArrow.setOnClickListener {
-            findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToHomeFragment())
+            findNavController().navigateUp()
+        }
+
+        binding.btnStartFight.setOnClickListener {
+            var pokemon = viewModel.pokemonList.random()
+            viewModel.setRandomPokemon(viewModel.toPokemonEntity(pokemon))
+            findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToFightFragment())
         }
 
         viewModel.favoritePokemon.observe(viewLifecycleOwner) {

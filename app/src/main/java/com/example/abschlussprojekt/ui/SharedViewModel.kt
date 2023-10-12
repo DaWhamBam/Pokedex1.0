@@ -28,6 +28,14 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val currentPokemon : LiveData<PokeEntity>
         get() = _currentPokemon
 
+    private val _randomPokemon : MutableLiveData<PokeEntity> = MutableLiveData()
+    val randomPokemon : LiveData<PokeEntity>
+        get() = _randomPokemon
+
+    private val _enemieHp : MutableLiveData<Int> = MutableLiveData()
+    val enemieHp : LiveData<Int>
+        get() = _enemieHp
+
     private val _typeName = MutableLiveData<String>()
     val typeName: LiveData<String>
         get() = _typeName
@@ -46,9 +54,17 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         loadPokemonList()
     }
 
+    fun setEnemieHp(enemieHp: Int) {
+        _enemieHp.value = enemieHp
+    }
+
 
     fun setTypeName(typeName: String) {
         _typeName.value = typeName
+    }
+
+    fun setRandomPokemon(pokemon: PokeEntity) {
+        _randomPokemon.postValue(pokemon)
     }
 
 
@@ -71,7 +87,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
 
     fun loadPokemonPage(offset: Int) {
-        Log.d("", "loading page with offset $offset")
         viewModelScope.launch {
             repository.loadPokemonPage(offset)
         }
@@ -91,6 +106,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         height = pokemon.height.toString(),
         weight = pokemon.weight.toString(),
         spriteDefaultFront = pokemon.sprites.front_default,
+        spriteDefaultBack = pokemon.sprites.back_default,
         type1 = pokemon.types.first().type.name,
         type2 = pokemon.types.last().type.name,
         hpInt = pokemon.stats[0].base_stat,
@@ -98,7 +114,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         defInt = pokemon.stats[2].base_stat,
         spdInt = pokemon.stats[3].base_stat,
         spDefInt = pokemon.stats[4].base_stat,
-        spAtkInt = pokemon.stats[5].base_stat
+        spAtkInt = pokemon.stats[5].base_stat,
+        atk1 = pokemon.moves[0].move.name,
+        atk2 = pokemon.moves[1].move.name,
+        atk3 = pokemon.moves[2].move.name,
+        atk4 = pokemon.moves[3].move.name,
+        atk1Int = pokemon.atk1Int,
+        pokeHp = pokemon.pokeHp,
     )
 
 
@@ -114,22 +136,4 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
             repository.delete(currentPokemon.value!!.id)
         }
     }
-
-
-    fun toPokemon(pokemon: PokeEntity): Pokemon = Pokemon(
-        id = pokemon.id,
-        name = pokemon.name,
-        height = pokemon.height.toInt(),
-        weight = pokemon.weight.toInt(),
-        sprites = Sprites(pokemon.spriteDefaultFront),
-        types = listOf(PokemonTyps(Type(pokemon.type1)), PokemonTyps(Type(pokemon.type2))),
-        stats = listOf(
-            PokemonStat(pokemon.hpInt,0,StatsName("HP")),
-            PokemonStat(pokemon.atkInt, 0, StatsName("ATK")),
-            PokemonStat(pokemon.defInt, 0, StatsName("DEF")),
-            PokemonStat(pokemon.spdInt, 0, StatsName("SPD")),
-            PokemonStat(pokemon.spAtkInt, 0, StatsName("SP-ATK")),
-            PokemonStat(pokemon.spDefInt, 0, StatsName("SP-DEF"))
-            )
-    )
 }
