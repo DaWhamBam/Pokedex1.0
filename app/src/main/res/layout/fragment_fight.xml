@@ -42,11 +42,13 @@
         app:strokeWidth="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/atkConstraint"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tv_body_text"
+                android:tag="bodyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -61,6 +63,7 @@
 
             <TextView
                 android:id="@+id/tv_atk1"
+                android:tag="atk_atk1"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -74,9 +77,9 @@
 
             <TextView
                 android:id="@+id/tv_atk2"
+                android:tag="atk_atk2"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="@font/josefin_sans_bold"
                 android:text="Blitz"
                 android:textColor="@color/black"
@@ -86,9 +89,9 @@
 
             <TextView
                 android:id="@+id/tv_atk3"
+                android:tag="atk_atk3"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="@font/josefin_sans_bold"
                 android:text="Schaufler"
                 android:textColor="@color/black"
@@ -98,9 +101,9 @@
 
             <TextView
                 android:id="@+id/tv_atk4"
+                android:tag="atk_atk4"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="@font/josefin_sans_bold"
                 android:text="Kratzer"
                 android:textColor="@color/black"

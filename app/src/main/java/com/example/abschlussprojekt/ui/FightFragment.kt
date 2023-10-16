@@ -6,13 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.example.abschlussprojekt.R
 import com.example.abschlussprojekt.databinding.FragmentFightBinding
-import okhttp3.internal.notify
 
 class FightFragment : Fragment() {
     private val viewModel: SharedViewModel by activityViewModels()
@@ -58,15 +58,27 @@ class FightFragment : Fragment() {
             binding.tvCurrentHpEnemieInt.text = viewModel.enemieHp.value.toString()
         })
 
-        binding.tvAtk1.setOnClickListener {
-            Log.e("Hp", "${viewModel.randomPokemon.value!!.pokeHp}")
-            if (viewModel.randomPokemon.value?.pokeHp!! > 0) {
-                viewModel.randomPokemon.value!!.pokeHp -= viewModel.currentPokemon.value!!.atk1Int
-                viewModel.setEnemieHp(viewModel.randomPokemon.value!!.pokeHp)
-            } else {
-                Log.e("HpElse", "${viewModel.currentPokemon.value!!.pokeHp}")
+        viewModel.pokeHp.observe(viewLifecycleOwner, Observer{
+            binding.tvCurrentHpInt.text = viewModel.pokeHp.value.toString()
+        })
+
+        viewModel.atkName.observe(viewLifecycleOwner, Observer {
+            viewModel.pokemonFight()
+        })
+
+
+        binding
+            .atkConstraint
+            .children
+            .forEach { view ->
+                val viewTag = view.tag.toString()
+                if (view is TextView && viewTag.startsWith("atk_")) {
+                    view.setOnClickListener {
+                        viewModel.setAtk(viewTag.substring(4))
+                        binding.tvBodyText.text = "${viewModel.currentPokemon.value?.name?.capitalize()} greift mit ${viewModel.atkName.value} an!"
+                    }
+                }
             }
-        }
 
         binding.ivBackArrow.setOnClickListener {
             findNavController().navigateUp()

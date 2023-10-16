@@ -99,6 +99,7 @@ class HomeFragment : Fragment() {
             .children
             .forEach { view ->
                 val viewTag = view.tag.toString()
+                Log.d("viewTagHome", "Hier: $viewTag")
                 if (view is ShapeableImageView && viewTag.startsWith("filter_")) {
                     view.setOnClickListener {
                         viewModel.setTypeName(viewTag.substring(7))

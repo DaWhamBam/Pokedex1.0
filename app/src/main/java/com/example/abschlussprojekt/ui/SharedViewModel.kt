@@ -8,12 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.abschlussprojekt.data.local.getDatabase
 import com.example.abschlussprojekt.data.models.PokeEntity
-import com.example.abschlussprojekt.data.models.Sprites
 import com.example.abschlussprojekt.data.models.pokemon.Pokemon
-import com.example.abschlussprojekt.data.models.pokemonstats.PokemonStat
-import com.example.abschlussprojekt.data.models.pokemonstats.StatsName
-import com.example.abschlussprojekt.data.models.pokemontyps.PokemonTyps
-import com.example.abschlussprojekt.data.models.pokemontyps.Type
 import com.example.abschlussprojekt.data.remote.AppRepository
 import com.example.abschlussprojekt.data.remote.PokeApi
 import kotlinx.coroutines.launch
@@ -24,17 +19,25 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     var inputText = MutableLiveData<String>()
 
-    private val _currentPokemon : MutableLiveData<PokeEntity> = MutableLiveData()
-    val currentPokemon : LiveData<PokeEntity>
+    private val _currentPokemon: MutableLiveData<PokeEntity> = MutableLiveData()
+    val currentPokemon: LiveData<PokeEntity>
         get() = _currentPokemon
 
-    private val _randomPokemon : MutableLiveData<PokeEntity> = MutableLiveData()
-    val randomPokemon : LiveData<PokeEntity>
+    private val _randomPokemon: MutableLiveData<PokeEntity> = MutableLiveData()
+    val randomPokemon: LiveData<PokeEntity>
         get() = _randomPokemon
 
-    private val _enemieHp : MutableLiveData<Int> = MutableLiveData()
-    val enemieHp : LiveData<Int>
+    private val _enemieHp: MutableLiveData<Int> = MutableLiveData()
+    val enemieHp: LiveData<Int>
         get() = _enemieHp
+
+    private val _pokeHp = MutableLiveData<Int>()
+    val pokeHp: LiveData<Int>
+        get() = _pokeHp
+
+    private val _atkName = MutableLiveData<String>()
+    val atkName: LiveData<String>
+        get() = _atkName
 
     private val _typeName = MutableLiveData<String>()
     val typeName: LiveData<String>
@@ -46,8 +49,8 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val searchPokemon = repository.searchPokemon
     val favoritePokemon = repository.favoritePokemon
 
-    private var _newfilter : MutableLiveData<List<Pokemon>> = MutableLiveData()
-    val newfilter : LiveData<List<Pokemon>>
+    private var _newfilter: MutableLiveData<List<Pokemon>> = MutableLiveData()
+    val newfilter: LiveData<List<Pokemon>>
         get() = _newfilter
 
     init {
@@ -59,9 +62,20 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     }
 
 
+    fun setPokeHp(pokeHp: Int) {
+        _pokeHp.value = pokeHp
+    }
+
+
     fun setTypeName(typeName: String) {
         _typeName.value = typeName
     }
+
+
+    fun setAtk(atkName: String) {
+        _atkName.value = atkName
+    }
+
 
     fun setRandomPokemon(pokemon: PokeEntity) {
         _randomPokemon.postValue(pokemon)
@@ -74,7 +88,29 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
 
     fun filteredPokemonList() {
-        _newfilter.value = pokemonList.filter { it.types.first().type.name == _typeName.value}
+        _newfilter.value = pokemonList.filter { it.types.first().type.name == _typeName.value }
+    }
+
+    fun pokeRound() {
+        if(randomPokemon.value?.pokeHp!! > 0) {
+            randomPokemon.value!!.pokeHp -= currentPokemon.value!!.atk1Int
+            setEnemieHp(randomPokemon.value!!.pokeHp)
+
+        }
+    }
+
+    fun enemieRound() {
+        if(currentPokemon.value?.pokeHp!! > 0) {
+            Thread.sleep(3000)
+            currentPokemon.value!!.pokeHp -= currentPokemon.value!!.atk1Int
+            setPokeHp(currentPokemon.value!!.pokeHp)
+        }
+    }
+
+
+    fun pokemonFight() {
+        pokeRound()
+        enemieRound()
     }
 
 

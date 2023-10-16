@@ -37,7 +37,7 @@ class HomeAdapter(
         notifyDataSetChanged()
     }
 
-
+    /*-------------------------------*/
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         recyclerView.setOnScrollChangeListener { _, _, _, _, _ ->
@@ -48,7 +48,7 @@ class HomeAdapter(
                     val lastVisibleItemPos = layoutManager.findLastVisibleItemPosition()
 
                     if (autoscrollEnabled && !isLoading) {
-                        if (lastVisibleItemPos > totalItemCount - 20) {
+                        if (lastVisibleItemPos > totalItemCount - 40) {
                             viewModel.loadPokemonPage(totalItemCount)
                             isLoading = true
                         }
@@ -72,7 +72,6 @@ class HomeAdapter(
 
     override fun onBindViewHolder(holder: ItemHomeViewHolder, position: Int) {
         val pokemon = dataSet[position]
-//        Log.e("pokemon", "Hier: $pokemon")
 
         holder.binding.ivPokemon.load(pokemon.sprites.front_default)
         holder.binding.tvPokeId.text = pokemon.id.toString()
