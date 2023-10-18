@@ -11,6 +11,7 @@ import com.example.abschlussprojekt.data.models.PokeEntity
 import com.example.abschlussprojekt.data.models.pokemon.Pokemon
 import com.example.abschlussprojekt.data.remote.AppRepository
 import com.example.abschlussprojekt.data.remote.PokeApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
@@ -95,13 +96,11 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         if(randomPokemon.value?.pokeHp!! > 0) {
             randomPokemon.value!!.pokeHp -= currentPokemon.value!!.atk1Int
             setEnemieHp(randomPokemon.value!!.pokeHp)
-
         }
     }
 
     fun enemieRound() {
         if(currentPokemon.value?.pokeHp!! > 0) {
-            Thread.sleep(3000)
             currentPokemon.value!!.pokeHp -= currentPokemon.value!!.atk1Int
             setPokeHp(currentPokemon.value!!.pokeHp)
         }
@@ -109,8 +108,11 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
 
     fun pokemonFight() {
-        pokeRound()
-        enemieRound()
+        viewModelScope.launch {
+            pokeRound()
+            delay(3000)
+            enemieRound()
+        }
     }
 
 

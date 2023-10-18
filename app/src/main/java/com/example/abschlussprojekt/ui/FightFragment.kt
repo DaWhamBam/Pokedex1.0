@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.example.abschlussprojekt.R
 import com.example.abschlussprojekt.databinding.FragmentFightBinding
 
 class FightFragment : Fragment() {
@@ -56,10 +57,16 @@ class FightFragment : Fragment() {
 
         viewModel.enemieHp.observe(viewLifecycleOwner, Observer {
             binding.tvCurrentHpEnemieInt.text = viewModel.enemieHp.value.toString()
+            if (viewModel.enemieHp.value!! <= 1) {
+                binding.tvBodyText.text = "Du hast gewonnen"
+            }
         })
 
-        viewModel.pokeHp.observe(viewLifecycleOwner, Observer{
+        viewModel.pokeHp.observe(viewLifecycleOwner, Observer {
             binding.tvCurrentHpInt.text = viewModel.pokeHp.value.toString()
+            if (viewModel.pokeHp.value!! <= 1) {
+                binding.tvBodyText.text = "Du hast gewonnen"
+            }
         })
 
         viewModel.atkName.observe(viewLifecycleOwner, Observer {
@@ -75,7 +82,35 @@ class FightFragment : Fragment() {
                 if (view is TextView && viewTag.startsWith("atk_")) {
                     view.setOnClickListener {
                         viewModel.setAtk(viewTag.substring(4))
-                        binding.tvBodyText.text = "${viewModel.currentPokemon.value?.name?.capitalize()} greift mit ${viewModel.atkName.value} an!"
+                        if (viewTag.substring(4) == "atk1") {
+                            binding.tvBodyText.text =
+                                getString(
+                                    R.string.angriffstext,
+                                    viewModel.currentPokemon.value?.name?.capitalize(),
+                                    viewModel.currentPokemon.value?.atk1?.capitalize()
+                                )
+                        } else if (viewTag.substring(4) == "atk2") {
+                            binding.tvBodyText.text =
+                                getString(
+                                    R.string.angriffstext,
+                                    viewModel.currentPokemon.value?.name?.capitalize(),
+                                    viewModel.currentPokemon.value?.atk2?.capitalize()
+                                )
+                        } else if (viewTag.substring(4) == "atk3") {
+                            binding.tvBodyText.text =
+                                getString(
+                                    R.string.angriffstext,
+                                    viewModel.currentPokemon.value?.name?.capitalize(),
+                                    viewModel.currentPokemon.value?.atk3?.capitalize()
+                                )
+                        } else if (viewTag.substring(4) == "atk4") {
+                            binding.tvBodyText.text =
+                                getString(
+                                    R.string.angriffstext,
+                                    viewModel.currentPokemon.value?.name?.capitalize(),
+                                    viewModel.currentPokemon.value?.atk4?.capitalize()
+                                )
+                        }
                     }
                 }
             }
